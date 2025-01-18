@@ -699,52 +699,48 @@
     </div>
 
     <script>
-        // Add click event to the art piece
-        document.querySelector('.art-piece').addEventListener('click', function() {
-            openModal();
+        // Check if we should open modal based on hash
+        function checkHashAndOpenModal() {
+            if (window.location.hash === '#artwork-detail') {
+                openModal(false);
+            }
+        }
+
+        // Run check when page loads
+        document.addEventListener('DOMContentLoaded', checkHashAndOpenModal);
+
+        // Check hash change
+        window.addEventListener('hashchange', function() {
+            checkHashAndOpenModal();
         });
 
-        function openModal() {
+        // Add click event to the art piece
+        document.querySelector('.art-piece').addEventListener('click', function() {
+            openModal(true);
+        });
+
+        function openModal(updateHash = true) {
             document.getElementById('artModal').style.display = 'block';
             document.body.classList.add('modal-open');
             
-            // Update browser URL without reload
-            const newUrl = getFullUrl();
-            window.history.pushState({ page: 'art-detail' }, '', newUrl);
+            // Update URL hash without triggering hashchange event
+            if (updateHash && window.location.hash !== '#artwork-detail') {
+                window.location.hash = 'artwork-detail';
+            }
         }
 
         function closeModal() {
             document.getElementById('artModal').style.display = 'none';
             document.body.classList.remove('modal-open');
             
-            // Restore original URL
-            window.history.pushState({ page: 'art' }, '', '/art.html');
+            // Remove hash from URL
+            if (window.location.hash === '#artwork-detail') {
+                // Replace state instead of changing hash to avoid adding to history
+                history.replaceState('', document.title, window.location.pathname);
+            }
         }
 
-        // URL handling
-        function getFullUrl() {
-            const path = '/art/digital-space-exploration-2024';
-            // This will use the current domain when deployed
-            return window.location.origin + path;
-        }
-
-        function copyUrl() {
-            const fullUrl = getFullUrl();
-            navigator.clipboard.writeText(fullUrl).then(() => {
-                const button = document.querySelector('.copy-button');
-                button.textContent = 'Copied!';
-                button.classList.add('copied');
-                
-                setTimeout(() => {
-                    button.innerHTML = '<i class="fas fa-copy"></i> Copy URL';
-                    button.classList.remove('copied');
-                }, 2000);
-            }).catch(err => {
-                console.error('Failed to copy:', err);
-            });
-        }
-
-        // Close modal when clicking outside the content
+        // Close modal when clicking outside
         document.getElementById('artModal').addEventListener('click', function(e) {
             if (e.target === this) {
                 closeModal();
@@ -754,13 +750,6 @@
         // Close modal with Escape key
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
-                closeModal();
-            }
-        });
-
-        // Handle browser back button
-        window.addEventListener('popstate', function(event) {
-            if (document.getElementById('artModal').style.display === 'block') {
                 closeModal();
             }
         });
