@@ -699,33 +699,49 @@
     </div>
 
     <script>
-        // Check if we should open modal based on hash
-        function checkHashAndOpenModal() {
-            if (window.location.hash === '#artwork-detail') {
-                openModal(false);
+        // Handle direct URL access
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get current path
+            const currentPath = window.location.pathname;
+            const baseUrl = window.location.origin;
+            
+            // Update all image sources to use relative paths
+            document.querySelectorAll('img').forEach(img => {
+                const src = img.getAttribute('src');
+                if (src && src.startsWith('/')) {
+                    img.src = '..' + src;
+                }
+            });
+
+            // Update navigation links
+            document.querySelectorAll('a').forEach(link => {
+                const href = link.getAttribute('href');
+                if (href && href.startsWith('/')) {
+                    link.href = '..' + href;
+                }
+            });
+
+            // Handle modal state based on URL
+            if (currentPath.includes('digital-space-exploration-2024')) {
+                // We're on the detail page, show modal automatically
+                openModal();
             }
-        }
-
-        // Run check when page loads
-        document.addEventListener('DOMContentLoaded', checkHashAndOpenModal);
-
-        // Check hash change
-        window.addEventListener('hashchange', function() {
-            checkHashAndOpenModal();
         });
 
         // Add click event to the art piece
-        document.querySelector('.art-piece').addEventListener('click', function() {
-            openModal(true);
+        document.querySelector('.art-piece').addEventListener('click', function(e) {
+            e.preventDefault();
+            openModal();
         });
 
-        function openModal(updateHash = true) {
+        function openModal() {
             document.getElementById('artModal').style.display = 'block';
             document.body.classList.add('modal-open');
             
-            // Update URL hash without triggering hashchange event
-            if (updateHash && window.location.hash !== '#artwork-detail') {
-                window.location.hash = 'artwork-detail';
+            // Update URL to the detail page
+            const detailUrl = window.location.origin + '/digital-space-exploration-2024';
+            if (window.location.pathname !== '/digital-space-exploration-2024') {
+                window.history.pushState({ modal: true }, '', detailUrl);
             }
         }
 
@@ -733,12 +749,20 @@
             document.getElementById('artModal').style.display = 'none';
             document.body.classList.remove('modal-open');
             
-            // Remove hash from URL
-            if (window.location.hash === '#artwork-detail') {
-                // Replace state instead of changing hash to avoid adding to history
-                history.replaceState('', document.title, window.location.pathname);
+            // Go back to the gallery page
+            if (window.location.pathname.includes('digital-space-exploration-2024')) {
+                window.history.pushState({ modal: false }, '', '../art.html');
             }
         }
+
+        // Handle browser back/forward
+        window.addEventListener('popstate', function(event) {
+            if (event.state && event.state.modal) {
+                openModal();
+            } else {
+                closeModal();
+            }
+        });
 
         // Close modal when clicking outside
         document.getElementById('artModal').addEventListener('click', function(e) {
