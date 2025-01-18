@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Samurai's Repose in Floral Dreams</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: rgba(0, 0, 0, 0.8);
+        }
+        .artwork-container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            max-width: 1200px;
+            width: 90%;
+            position: relative;
+            display: flex;
+            gap: 30px;
+        }
+        .artwork-image {
+            flex: 1;
+            max-width: 60%;
+        }
+        .artwork-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+        .artwork-details {
+            flex: 1;
+            max-width: 40%;
+        }
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
+        .close-button:hover {
+            color: #000;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .artwork-info {
+            margin-bottom: 30px;
+        }
+        .artwork-info p {
+            margin: 5px 0;
+            color: #666;
+        }
+        .artwork-description {
+            line-height: 1.6;
+            color: #444;
+        }
+        .copyright-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        .copyright-notice {
+            background: #f8f8f8;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+        @media (max-width: 768px) {
+            .artwork-container {
+                flex-direction: column;
+                padding: 20px;
+            }
+            .artwork-image, .artwork-details {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="artwork-container">
+        <a href="../art.html" class="close-button" title="Close">×</a>
+        <div class="artwork-image">
+            <img src="../art.png" alt="Samurai's Repose in Floral Dreams">
+        </div>
+        <div class="artwork-details">
+            <h1>Samurai's Repose in Floral Dreams</h1>
+            
+            <div class="artwork-info">
+                <p><strong>Artist:</strong> Michael Anderson</p>
+                <p><strong>Creation Date:</strong> December 15, 2024</p>
+            </div>
+
+            <div class="artwork-description">
+                <p>The artwork "Samurai's Repose in Floral Dreams" is a unique fusion of traditional Japanese aesthetics and digital artistry. Created by artist Michael Anderson, this piece captures the serene moment of a samurai's rest amid an enchanting tapestry of floral patterns.</p>
+                <p>The contrasting colors - deep greens, earthy browns, and rich crimsons - create a multi-dimensional space where geometric patterns and organic elements interweave harmoniously. Every detail is meticulously crafted, from the sharp lines of the samurai's sword to the soft, flowing patterns of the traditional Japanese textile designs.</p>
+            </div>
+
+            <div class="copyright-section">
+                <div class="info-group">
+                    <h3>COPYRIGHT OWNER</h3>
+                    <p>Michael Anderson</p>
+                </div>
+
+                <div class="info-group">
+                    <h3>COPYRIGHT REGISTRATION</h3>
+                    <p>DA-2024-12150</p>
+                </div>
+
+                <div class="info-group">
+                    <h3>CONTACT EMAIL</h3>
+                    <p>legal@michaelanderson.com</p>
+                </div>
+
+                <div class="copyright-notice">
+                    <h3>⚠️ Copyright Notice</h3>
+                    <p>2024 Michael Anderson. All rights reserved.</p>
+                    <p>Any reproduction, distribution, or use of this artwork in any form without written permission from the copyright owner is strictly prohibited.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
